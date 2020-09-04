@@ -39,7 +39,7 @@ List<Image> imageList = [
   image7
 ];
 
-//Snack bars for error handling
+//Snack bars for error handling shown to the user as bar on the bottom above tab indicator
 final snackBar = SnackBar(content: Text('This has already been purchased'));
 final snackBar2 = SnackBar(content: Text('Not enough coins'));
 void main() => runApp(Home());
