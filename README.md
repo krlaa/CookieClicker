@@ -7,6 +7,7 @@ Cookie Clicker Game
 
 * Fast and smooth graphics with the use of precaching
 * In game information and game state stored locally
+* Reset feature coming soon
 
 ## Getting Started
 
