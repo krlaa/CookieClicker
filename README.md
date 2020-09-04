@@ -6,7 +6,7 @@ Cookie Clicker Game
 ## Features
 
 * Fast and smooth graphics with the use of precaching
-* Information and game state stored locally
+* In game information and game state stored locally
 
 ## Getting Started
 
