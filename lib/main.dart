@@ -76,7 +76,6 @@ class _TabControllerState extends State<TabController> {
   final _pageOptions = [Clicked(), Store()];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getitems();
   }
@@ -358,7 +357,6 @@ class Store extends StatefulWidget {
 class StoreState extends State<Store> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getitems();
   }
