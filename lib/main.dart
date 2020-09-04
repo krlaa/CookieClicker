@@ -39,6 +39,7 @@ List<Image> imageList = [
   image7
 ];
 final snackBar = SnackBar(content: Text('This has already been purchased'));
+final snackBar2 = SnackBar(content: Text('Not enough coins'));
 void main() => runApp(Home());
 
 class Home extends StatefulWidget {
@@ -58,18 +59,19 @@ class _HomeState extends State<Home> {
   }
 }
 
-
 class TabController extends StatefulWidget {
   @override
   _TabControllerState createState() => _TabControllerState();
 }
+
 void createFile(Map<String, dynamic> content, Directory dir, String fileName) {
-    print("Creating file!");
-    File file = new File(dir.path + "/" + fileName);
-    file.createSync();
-    fileExists = true;
-    file.writeAsStringSync(json.encode(content));
-  }
+  print("Creating file!");
+  File file = new File(dir.path + "/" + fileName);
+  file.createSync();
+  fileExists = true;
+  file.writeAsStringSync(json.encode(content));
+}
+
 class _TabControllerState extends State<TabController> {
   final _pageOptions = [Clicked(), Store()];
   @override
@@ -78,7 +80,6 @@ class _TabControllerState extends State<TabController> {
     super.initState();
     getitems();
   }
-
 
   getitems() {
     return getApplicationDocumentsDirectory().then((Directory directory) {
@@ -90,7 +91,7 @@ class _TabControllerState extends State<TabController> {
         setState(() {
           fileContent = json.decode(jsonFile.readAsStringSync());
           bites = fileContent["bites"];
-          
+
           coins = fileContent["coins"];
           itemFactor = fileContent["itemFactor"];
           grandma = fileContent["grandma"];
@@ -113,28 +114,31 @@ class _TabControllerState extends State<TabController> {
       jsonFile.writeAsStringSync(json.encode(jsonFileContent));
     } else {
       print("File does not exist!");
-      createFile(
-          {"bites":bites,
-"coins":coins,
-"itemFactor":itemFactor,
-"grandma":grandma,
-"wolf":wolf,
-"cookieMonster":cookieMonster,
-"goldilocks":goldilocks,}, dir, fileName);
+      createFile({
+        "bites": bites,
+        "coins": coins,
+        "itemFactor": itemFactor,
+        "grandma": grandma,
+        "wolf": wolf,
+        "cookieMonster": cookieMonster,
+        "goldilocks": goldilocks,
+      }, dir, fileName);
     }
     this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
     print(fileContent);
   }
-  writeMultiple(){
-    writeToFile("bites",bites);
-           
-            writeToFile("coins",coins);
-            writeToFile("itemFactor",itemFactor);
-            writeToFile("grandma",grandma);
-            writeToFile("wolf",wolf);
-            writeToFile("cookieMonster",cookieMonster);
-            writeToFile("goldilocks",goldilocks);
+
+  writeMultiple() {
+    writeToFile("bites", bites);
+
+    writeToFile("coins", coins);
+    writeToFile("itemFactor", itemFactor);
+    writeToFile("grandma", grandma);
+    writeToFile("wolf", wolf);
+    writeToFile("cookieMonster", cookieMonster);
+    writeToFile("goldilocks", goldilocks);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -199,29 +203,32 @@ class _ClickedState extends State<Clicked> {
       jsonFile.writeAsStringSync(json.encode(jsonFileContent));
     } else {
       print("File does not exist!");
-      createFile(
-          {"bites":bites,
-"_selectedPage":_selectedPage,
-"coins":coins,
-"itemFactor":itemFactor,
-"grandma":grandma,
-"wolf":wolf,
-"cookieMonster":cookieMonster,
-"goldilocks":goldilocks,}, dir, fileName);
+      createFile({
+        "bites": bites,
+        "_selectedPage": _selectedPage,
+        "coins": coins,
+        "itemFactor": itemFactor,
+        "grandma": grandma,
+        "wolf": wolf,
+        "cookieMonster": cookieMonster,
+        "goldilocks": goldilocks,
+      }, dir, fileName);
     }
     this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
     print(fileContent);
   }
-  writeMultiple(){
-    writeToFile("bites",bites);
-            writeToFile("_selectedPage",_selectedPage);
-            writeToFile("coins",coins);
-            writeToFile("itemFactor",itemFactor);
-            writeToFile("grandma",grandma);
-            writeToFile("wolf",wolf);
-            writeToFile("cookieMonster",cookieMonster);
-            writeToFile("goldilocks",goldilocks);
+
+  writeMultiple() {
+    writeToFile("bites", bites);
+    writeToFile("_selectedPage", _selectedPage);
+    writeToFile("coins", coins);
+    writeToFile("itemFactor", itemFactor);
+    writeToFile("grandma", grandma);
+    writeToFile("wolf", wolf);
+    writeToFile("cookieMonster", cookieMonster);
+    writeToFile("goldilocks", goldilocks);
   }
+
   @override
   void initState() {
     super.initState();
@@ -235,8 +242,6 @@ class _ClickedState extends State<Clicked> {
     getitems();
   }
 
-
-
   getitems() {
     return getApplicationDocumentsDirectory().then((Directory directory) {
       dir = directory;
@@ -247,7 +252,7 @@ class _ClickedState extends State<Clicked> {
         setState(() {
           fileContent = json.decode(jsonFile.readAsStringSync());
           bites = fileContent["bites"];
-          
+
           coins = fileContent["coins"];
           itemFactor = fileContent["itemFactor"];
           grandma = fileContent["grandma"];
@@ -273,6 +278,30 @@ class _ClickedState extends State<Clicked> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(bottom: 50.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/images/coin.gif",
+                  scale: 2.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    child: Text(
+                      coins.toString(),
+                      style: TextStyle(
+                          color: Colors.white, fontFamily: "Fun", fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           Text(
             "Bites: " + bites.toString(),
             textAlign: TextAlign.center,
@@ -295,9 +324,10 @@ class _ClickedState extends State<Clicked> {
                 if (itemFactor == 0) {
                   coins = coins + 1 + itemFactor;
                   writeMultiple();
-                } else{
+                } else {
                   coins = coins + itemFactor;
-                  writeMultiple();}
+                  writeMultiple();
+                }
               });
             },
           ),
@@ -326,13 +356,12 @@ class Store extends StatefulWidget {
 }
 
 class StoreState extends State<Store> {
-   @override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getitems();
   }
-
 
   getitems() {
     return getApplicationDocumentsDirectory().then((Directory directory) {
@@ -344,7 +373,7 @@ class StoreState extends State<Store> {
         setState(() {
           fileContent = json.decode(jsonFile.readAsStringSync());
           bites = fileContent["bites"];
-          
+
           coins = fileContent["coins"];
           itemFactor = fileContent["itemFactor"];
           grandma = fileContent["grandma"];
@@ -355,6 +384,7 @@ class StoreState extends State<Store> {
       }
     });
   }
+
   void writeToFile(String key, dynamic value) {
     print("Writing to file!");
     Map<String, dynamic> content = {key: value};
@@ -366,28 +396,31 @@ class StoreState extends State<Store> {
       jsonFile.writeAsStringSync(json.encode(jsonFileContent));
     } else {
       print("File does not exist!");
-      createFile(
-          {"bites":bites,
-"coins":coins,
-"itemFactor":itemFactor,
-"grandma":grandma,
-"wolf":wolf,
-"cookieMonster":cookieMonster,
-"goldilocks":goldilocks,}, dir, fileName);
+      createFile({
+        "bites": bites,
+        "coins": coins,
+        "itemFactor": itemFactor,
+        "grandma": grandma,
+        "wolf": wolf,
+        "cookieMonster": cookieMonster,
+        "goldilocks": goldilocks,
+      }, dir, fileName);
     }
     this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
     print(fileContent);
   }
-  writeMultiple(){
-    writeToFile("bites",bites);
-            
-            writeToFile("coins",coins);
-            writeToFile("itemFactor",itemFactor);
-            writeToFile("grandma",grandma);
-            writeToFile("wolf",wolf);
-            writeToFile("cookieMonster",cookieMonster);
-            writeToFile("goldilocks",goldilocks);
+
+  writeMultiple() {
+    writeToFile("bites", bites);
+
+    writeToFile("coins", coins);
+    writeToFile("itemFactor", itemFactor);
+    writeToFile("grandma", grandma);
+    writeToFile("wolf", wolf);
+    writeToFile("cookieMonster", cookieMonster);
+    writeToFile("goldilocks", goldilocks);
   }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -425,6 +458,8 @@ class StoreState extends State<Store> {
                         grandma = true;
                       });
                       writeMultiple();
+                    } else {
+                      Scaffold.of(context).showSnackBar(snackBar2);
                     }
                     writeMultiple();
                   } else
@@ -477,6 +512,8 @@ class StoreState extends State<Store> {
                         goldilocks = true;
                       });
                       writeMultiple();
+                    } else {
+                      Scaffold.of(context).showSnackBar(snackBar2);
                     }
                     writeMultiple();
                   } else
@@ -528,7 +565,11 @@ class StoreState extends State<Store> {
                         itemFactor = itemFactor + 50;
                         wolf = true;
                       });
-                   writeMultiple(); }writeMultiple();
+                      writeMultiple();
+                    } else {
+                      Scaffold.of(context).showSnackBar(snackBar2);
+                    }
+                    writeMultiple();
                   } else
                     Scaffold.of(context).showSnackBar(snackBar);
                 },
@@ -578,7 +619,11 @@ class StoreState extends State<Store> {
                         itemFactor = itemFactor + 100;
                         cookieMonster = true;
                       });
-                    writeMultiple();}writeMultiple();
+                      writeMultiple();
+                    } else {
+                      Scaffold.of(context).showSnackBar(snackBar2);
+                    }
+                    writeMultiple();
                   } else
                     Scaffold.of(context).showSnackBar(snackBar);
                 },
