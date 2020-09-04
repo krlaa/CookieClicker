@@ -1,6 +1,6 @@
 # Cookie
 
-Cookie Clicker game
+Cookie Clicker Game
 
 
 ## Features
