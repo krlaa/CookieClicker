@@ -38,6 +38,8 @@ List<Image> imageList = [
   image6,
   image7
 ];
+
+//Snack bars for error handling
 final snackBar = SnackBar(content: Text('This has already been purchased'));
 final snackBar2 = SnackBar(content: Text('Not enough coins'));
 void main() => runApp(Home());
@@ -64,6 +66,7 @@ class TabController extends StatefulWidget {
   _TabControllerState createState() => _TabControllerState();
 }
 
+//Creates file to store game state/info
 void createFile(Map<String, dynamic> content, Directory dir, String fileName) {
   print("Creating file!");
   File file = new File(dir.path + "/" + fileName);
@@ -74,13 +77,15 @@ void createFile(Map<String, dynamic> content, Directory dir, String fileName) {
 
 class _TabControllerState extends State<TabController> {
   final _pageOptions = [Clicked(), Store()];
+  //init for tab controler gets items with getItems()
   @override
   void initState() {
     super.initState();
-    getitems();
+    getItems();
   }
 
-  getitems() {
+  //looks for the file if it exiitsts
+  getItems() {
     return getApplicationDocumentsDirectory().then((Directory directory) {
       dir = directory;
       jsonFile = new File(dir.path + "/" + fileName);
@@ -102,6 +107,7 @@ class _TabControllerState extends State<TabController> {
     });
   }
 
+  //writes game state/info to file if it doesnt exist then creates file with createFile
   void writeToFile(String key, dynamic value) {
     print("Writing to file!");
     Map<String, dynamic> content = {key: value};
@@ -127,9 +133,9 @@ class _TabControllerState extends State<TabController> {
     print(fileContent);
   }
 
+  //condensed function to write all the info to file
   writeMultiple() {
     writeToFile("bites", bites);
-
     writeToFile("coins", coins);
     writeToFile("itemFactor", itemFactor);
     writeToFile("grandma", grandma);
@@ -265,6 +271,7 @@ class _ClickedState extends State<Clicked> {
 
   @override
   Widget build(BuildContext context) {
+    //caches images so there is no visible flicker when cookie changes
     precacheImage(image1.image, context);
     precacheImage(image2.image, context);
     precacheImage(image3.image, context);
